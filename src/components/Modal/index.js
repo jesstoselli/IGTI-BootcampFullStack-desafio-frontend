@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const Modal = ({
   show,
-  operation,
+  action,
   closeModal,
   submitModalForm,
   transactionToEdit,
@@ -19,14 +19,8 @@ const Modal = ({
   const [value, setValue] = useState("");
   const [date, setDate] = useState();
 
-  // const [currentTransaction, setCurrentTransaction] = useState();
-
   useEffect(() => {
     if (transactionToEdit) {
-      // setCurrentTransaction(transactionToEdit);
-
-      // console.log(currentTransaction);
-
       const {
         description,
         category,
@@ -45,8 +39,6 @@ const Modal = ({
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
-    // console.log(transactionToEdit);
 
     let transaction;
     if (!transactionToEdit) {
@@ -67,7 +59,6 @@ const Modal = ({
       };
     }
 
-    // console.log(transaction);
     submitModalForm(transaction);
   };
 
@@ -96,10 +87,9 @@ const Modal = ({
                   value='+'
                   checked={radioBtnsValue === "+"}
                   onChange={(e) => {
-                    console.log(e.target.value);
                     setRadioBtnsValue(e.target.value);
                   }}
-                  disabled={description !== ""}
+                  disabled={action === "edit"}
                 />
                 Income
               </label>
@@ -110,10 +100,9 @@ const Modal = ({
                   value='-'
                   checked={radioBtnsValue === "-"}
                   onChange={(e) => {
-                    console.log(e.target.value);
                     setRadioBtnsValue(e.target.value);
                   }}
-                  disabled={description !== ""}
+                  disabled={action === "edit"}
                 />
                 Outcome
               </label>
@@ -161,7 +150,6 @@ const Modal = ({
                 id='date'
                 name='date'
                 onChange={(e) => {
-                  // console.log(e.target.value);
                   setDate(e.target.value);
                 }}
                 value={date}

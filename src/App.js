@@ -34,6 +34,7 @@ export default function App() {
   const [transactionToEdit, setTransactionToEdit] = useState();
 
   const [show, setShow] = useState(false);
+  const [action, setAction] = useState("add");
   const [searchParams, setSearchParams] = useState("");
 
   // onLoad
@@ -118,7 +119,6 @@ export default function App() {
       api
         .post("/", transaction)
         .then((res) => {
-          console.log(res);
           const { balance, quantityOfTransactions, transactions } = res.data;
 
           setBalance(balance);
@@ -127,11 +127,9 @@ export default function App() {
         })
         .catch((err) => console.log(err));
     } else {
-      console.log(transaction);
       api
         .patch("/", { transaction })
         .then((res) => {
-          console.log(res);
           const { balance, quantityOfTransactions, transactions } = res.data;
 
           setBalance(balance);
@@ -145,6 +143,7 @@ export default function App() {
   };
 
   const handleEditButtonClick = (id) => {
+    setAction("edit");
     api.get(`/id?id=${id}`).then((res) => {
       setTransactionToEdit(res.data[0]);
     });
@@ -156,7 +155,6 @@ export default function App() {
     api
       .delete("/", { data: { id } })
       .then((res) => {
-        console.log(res);
         const { balance, quantityOfTransactions, transactions } = res.data;
 
         setBalance(balance);
@@ -186,6 +184,7 @@ export default function App() {
         closeModal={handleModalClose}
         submitModalForm={handleAddOrEditEntry}
         transactionToEdit={transactionToEdit}
+        action={action}
       />
       <Backdrop show={show} clicked={handleModalClose} />
       <Container>
@@ -235,7 +234,12 @@ export default function App() {
         </Balance>
 
         <ButtonAndSearchContainer>
-          <button onClick={() => setShow(true)}>
+          <button
+            onClick={() => {
+              setShow(true);
+              setAction("add");
+            }}
+          >
             <FiPlus /> <p>new entry</p>
           </button>
           <Search>
