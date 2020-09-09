@@ -41,7 +41,7 @@ const Modal = ({
     e.preventDefault();
 
     let transaction;
-    if (!transactionToEdit) {
+    if (transactionToEdit) {
       transaction = {
         ...transactionToEdit,
         description,
