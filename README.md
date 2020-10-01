@@ -1,3 +1,9 @@
+## Link to the App
+
+https://jesstoselli-personalfinances.netlify.app/
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
